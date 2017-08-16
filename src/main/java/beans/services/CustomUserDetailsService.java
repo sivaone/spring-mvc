@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,6 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     UserDAO userDAO;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         User user = userDAO.get(Long.parseLong(userId));
         return new UserDetails() {
@@ -30,8 +32,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 String[] roles = user.getRoles().split(",");
                 Set<GrantedAuthority> auths = new HashSet<>(roles.length);
 
-                for (int i = 0; i < roles.length; i++) {
-                    auths.add(new SimpleGrantedAuthority(roles[i]));
+                for (String role : roles) {
+                    auths.add(new SimpleGrantedAuthority(role));
                 }
                 return auths;
             }
