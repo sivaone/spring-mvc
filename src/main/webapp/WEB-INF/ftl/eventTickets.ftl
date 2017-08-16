@@ -4,10 +4,8 @@
 <#import "/libs/mylib.ftl" as my>
 
 <#assign charset="UTF-8">
-<#assign title="Example">
-<#assign content>
-This is content
-</#assign>
+<#assign title="Event Tickets">
+
 <!DOCTYPE html>
 <html>
     <head>

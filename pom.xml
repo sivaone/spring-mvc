@@ -1,21 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.eapm</groupId>
-  <artifactId>spring-mvc</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>spring mvc</name>
-  <description>spring advanced course - spring mvc practical task</description>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.eapm</groupId>
+    <artifactId>spring-mvc</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>spring mvc</name>
+    <description>spring advanced course - spring mvc practical task</description>
   
-   <properties>
+    <properties>
         <spring.ver>4.2.4.RELEASE</spring.ver>
         <aspectj.ver>1.8.8</aspectj.ver>
         <hibernate.ver>5.1.0.Final</hibernate.ver>
         <h2.ver>1.4.191</h2.ver>
     </properties>
     
-  <dependencies>
-  	<dependency>
+    <dependencies>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.ver}</version>
@@ -45,7 +45,7 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.ver}</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.ver}</version>
@@ -54,6 +54,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
             <version>${spring.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.2.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -82,8 +87,13 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.9</version>
+            <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.7</version>
+        </dependency>
     </dependencies>
 
     <build>

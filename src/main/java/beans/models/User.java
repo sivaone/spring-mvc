@@ -14,6 +14,8 @@ public class User {
     private String    email;
     private String    name;
     private LocalDate birthday;
+    private String password;
+    private String roles;
 
     public User() {
     }
@@ -64,6 +66,24 @@ public class User {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+    
+    
 
     @Override
     public boolean equals(Object o) {
