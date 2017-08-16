@@ -1,8 +1,5 @@
 <#ftl strip_whitespace = true>
 
-<#setting boolean_format=computer>
-<#import "/libs/mylib.ftl" as my>
-
 <#assign charset="UTF-8">
 <#assign title="Booking Result">
 
@@ -14,7 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        Booking Result: <h3>${bookingResult}</h3>
+        Booking Result: <h3>${bookedTicket}</h3>
 
+        <a href="<@spring.url '/logout.html' />">Logout</a>
     </body>
 </html>

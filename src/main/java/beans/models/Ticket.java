@@ -1,5 +1,6 @@
 package beans.models;
 
+import java.io.Serializable;
 import util.CsvUtil;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.List;
  * Date: 2/1/2016
  * Time: 7:37 PM
  */
-public class Ticket {
+public class Ticket implements Serializable {
 
     private long          id;
     private Event         event;

@@ -1,5 +1,6 @@
 package beans.controllers;
 
+import beans.models.Event;
 import beans.models.Ticket;
 import beans.models.User;
 import beans.services.BookingService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -31,9 +33,17 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking/bookticket", method = RequestMethod.POST)
-    public String bookTicket(User user, Ticket ticket, ModelMap modelMap) {
-        Ticket bookedTicket = bookingService.bookTicket(user, ticket);
-        modelMap.addAttribute("bookedTicket", bookedTicket);
+    public String bookTicket(@RequestParam String userId, @RequestParam String eventId, 
+            @RequestParam String seats, ModelMap modelMap) {
+        User user = new User();
+        user.setId(Long.parseLong(userId));
+        Ticket ticket = new Ticket();
+        Event event = new Event();
+        event.setId(Long.parseLong(eventId));
+        ticket.setEvent(event);
+        ticket.setSeats(seats);
+        bookingService.bookTicket(user, ticket);
+        modelMap.addAttribute("bookedTicket", seats + " seats are booked for the event");
          return "bookingResult";
     }
 
@@ -43,6 +53,11 @@ public class BookingController {
         List<Ticket> eventTickets = bookingService.getTicketsForEvent(event, auditorium, date);
          modelMap.addAttribute("eventTickets", eventTickets);
          return "eventTickets";
+    }
+    
+    @RequestMapping("/booking/bookticket")
+    public String bookTicket(){
+        return "bookticket";
     }
 
 }

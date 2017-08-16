@@ -142,7 +142,7 @@ public class BookingServiceImpl implements BookingService {
                 bookedTicket.getSeatsList() :: contains).findAny().isPresent()).findAny().isPresent();
 
         if (!seatsAreAlreadyBooked)
-            bookingDAO.create(user, ticket);
+            bookingDAO.create(foundUser, ticket);
         else
             throw new IllegalStateException("Unable to book ticket: [" + ticket + "]. Seats are already booked.");
 

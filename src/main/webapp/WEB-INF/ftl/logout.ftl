@@ -3,7 +3,7 @@
 <#import "/spring.ftl" as spring />
 
 <#assign charset="UTF-8">
-<#assign title="Welcome page">
+<#assign title="Logout successful">
 
 <!DOCTYPE html>
 <html>
@@ -12,11 +12,7 @@
         <meta charset="${charset}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-    <body>
-       
-        <h1>Login successful</h1>
-        
-        <a href="<@spring.url '/logout.html' />">Logout</a>
-    </body>
-</html>
-
+        <body>
+            <h2>Logout successful</h2>
+        </body>
+    </html>

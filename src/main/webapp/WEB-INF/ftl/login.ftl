@@ -14,7 +14,7 @@
         </head>
     <body>
         <form action="<@spring.url '/j_spring_security_check' />" method="post">
-    <label for="username">Username</label><input type="text" id="username" name="username"><br/>
+    <label for="username">User Id</label><input type="text" id="username" name="username"><br/>
     <label for="password">Password</label><input type="password" id="password" name="password"><br/>
     <input type="submit" value="Login">
     </form>
