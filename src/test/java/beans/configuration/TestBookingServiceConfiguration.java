@@ -111,6 +111,11 @@ public class TestBookingServiceConfiguration {
     public Auditorium testHall2() {
         return new Auditorium(2, "Test auditorium 2", 8, Collections.singletonList(1));
     }
+    
+    @Bean
+    public UserAccount testUserAccount1() {
+        return new UserAccount(0,testUser1(),100.50);
+    }
 
     @Bean
     public AuditoriumDAO auditoriumDAO() {
@@ -132,10 +137,24 @@ public class TestBookingServiceConfiguration {
     public UserService userServiceImpl() {
         return new UserServiceImpl(userDAOMock());
     }
+    
+    @Bean
+    public UserAccountDAOMock userAccountDAOMock() {
+        return new UserAccountDAOMock(Arrays.asList(testUserAccount1()));
+    }
+    
+    @Bean
+    public UserAccountService userAccountServiceImpl() {
+        return new UserAccountServiceImpl(userAccountDAOMock());
+    }
 
     @Bean(name = "testBookingServiceImpl")
     public BookingService bookingServiceImpl() {
-        return new BookingServiceImpl(eventServiceImpl(), auditoriumServiceImpl(), userServiceImpl(),
-                                      discountBookingServiceImpl(), bookingBookingDAO(), 1, 2, 1.2, 1);
+        return new BookingServiceImpl(eventServiceImpl(), 
+                auditoriumServiceImpl(), 
+                userServiceImpl(),
+                discountBookingServiceImpl(), 
+                userAccountServiceImpl(), 
+                bookingBookingDAO(), 1, 2, 1.2, 1);
     }
 }

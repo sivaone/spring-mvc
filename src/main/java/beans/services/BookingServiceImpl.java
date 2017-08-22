@@ -31,6 +31,7 @@ public class BookingServiceImpl implements BookingService {
     private final UserService       userService;
     private final BookingDAO        bookingDAO;
     private final DiscountService   discountService;
+    private final UserAccountService userAccountService;
     final         int               minSeatNumber;
     final         double            vipSeatPriceMultiplier;
     final         double            highRatedPriceMultiplier;
@@ -41,6 +42,7 @@ public class BookingServiceImpl implements BookingService {
                               @Qualifier("auditoriumServiceImpl") AuditoriumService auditoriumService,
                               @Qualifier("userServiceImpl") UserService userService,
                               @Qualifier("discountServiceImpl") DiscountService discountService,
+                              @Qualifier("userAccountService") UserAccountService userAccountService,
                               @Qualifier("bookingDAO") BookingDAO bookingDAO,
                               @Value("${min.seat.number}") int minSeatNumber,
                               @Value("${vip.seat.price.multiplier}") double vipSeatPriceMultiplier,
@@ -55,8 +57,10 @@ public class BookingServiceImpl implements BookingService {
         this.vipSeatPriceMultiplier = vipSeatPriceMultiplier;
         this.highRatedPriceMultiplier = highRatedPriceMultiplier;
         this.defaultRateMultiplier = defaultRateMultiplier;
+        this.userAccountService = userAccountService;
     }
 
+    @Transactional
     @Override
     public double getTicketPrice(String eventName, String auditoriumName, LocalDateTime dateTime, List<Integer> seats,
                                  User user) {
@@ -127,6 +131,7 @@ public class BookingServiceImpl implements BookingService {
         });
     }
 
+    @Transactional
     @Override
     public Ticket bookTicket(User user, Ticket ticket) {
         if (Objects.isNull(user)) {
@@ -141,18 +146,28 @@ public class BookingServiceImpl implements BookingService {
         boolean seatsAreAlreadyBooked = bookedTickets.stream().filter(bookedTicket -> ticket.getSeatsList().stream().filter(
                 bookedTicket.getSeatsList() :: contains).findAny().isPresent()).findAny().isPresent();
 
-        if (!seatsAreAlreadyBooked)
+        if (!seatsAreAlreadyBooked) {
             bookingDAO.create(foundUser, ticket);
+            userAccountService.deductMoney(ticket.getPrice() * ticket.getSeatsList().size(), foundUser.getId());
+        }
         else
             throw new IllegalStateException("Unable to book ticket: [" + ticket + "]. Seats are already booked.");
 
         return ticket;
     }
 
+    @Transactional
     @Override
     public List<Ticket> getTicketsForEvent(String event, String auditoriumName, LocalDateTime date) {
         final Auditorium auditorium = auditoriumService.getByName(auditoriumName);
         final Event foundEvent = eventService.getEvent(event, auditorium, date);
         return bookingDAO.getTickets(foundEvent);
     }
+    
+    @Transactional
+    @Override
+    public double refillMoney(double money, long userId) {
+        return userAccountService.refillMoney(money, userId);
+    }
+    
 }

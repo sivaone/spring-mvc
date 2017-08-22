@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="beans.models">
+  <class name="UserAccount" table="USER_ACCOUNT">
+      <id name="id" column="ID">
+            <generator class="identity"/>
+        </id>
+        <property name="prepaidMoney" column="PREPAID_MOENY" type="double"/>
+        <one-to-one class="beans.models.User" name="user" fetch="join" lazy="false" />
+  </class>
+</hibernate-mapping>

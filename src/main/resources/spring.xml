@@ -17,6 +17,11 @@
     <context:component-scan base-package="beans"/>
 
     <aop:aspectj-autoproxy/>
+    
+    <!-- this is already configured in DbSessionFactory class -->
+<!--    <bean id="myTxnManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>-->
 
     <tx:annotation-driven />
 </beans>

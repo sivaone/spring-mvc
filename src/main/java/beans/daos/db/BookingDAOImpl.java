@@ -28,7 +28,7 @@ public class BookingDAOImpl extends AbstractDAO implements BookingDAO {
         Long ticketId = (Long) getCurrentSession().save(ticket);
         Ticket storedTicket = ticket.withId(ticketId);
         Booking booking = new Booking(user, storedTicket);
-        getCurrentSession().save(booking);
+        getCurrentSession().save(booking);        
         return storedTicket;
     }
 

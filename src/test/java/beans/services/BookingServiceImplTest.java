@@ -7,6 +7,7 @@ import beans.configuration.db.DbSessionFactory;
 import beans.daos.mocks.BookingDAOBookingMock;
 import beans.daos.mocks.DBAuditoriumDAOMock;
 import beans.daos.mocks.EventDAOMock;
+import beans.daos.mocks.UserAccountDAOMock;
 import beans.daos.mocks.UserDAOMock;
 import beans.models.Event;
 import beans.models.Ticket;
@@ -61,6 +62,8 @@ public class BookingServiceImplTest {
     private UserDAOMock           userDAOMock;
     @Autowired
     private DBAuditoriumDAOMock   auditoriumDAOMock;
+    @Autowired
+    private UserAccountDAOMock userAccountDAOMock;
 
     @Before
     public void init() {
@@ -68,6 +71,7 @@ public class BookingServiceImplTest {
         userDAOMock.init();
         eventDAOMock.init();
         bookingDAOBookingMock.init();
+        userAccountDAOMock.init();
     }
 
     @After

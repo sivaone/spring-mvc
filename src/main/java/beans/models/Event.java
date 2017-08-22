@@ -16,6 +16,7 @@ public class Event {
     private double        basePrice;
     private LocalDateTime dateTime;
     private Auditorium    auditorium;
+    private double ticketPrice;
 
     public Event() {
     }
@@ -85,6 +86,14 @@ public class Event {
         this.auditorium = auditorium;
     }
 
+    public double getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o)
