@@ -1,6 +1,12 @@
 package beans.models;
 
 import java.time.LocalDate;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import util.LocalDateAdapter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,6 +14,7 @@ import java.time.LocalDate;
  * Date: 2/1/2016
  * Time: 7:35 PM
  */
+@XmlRootElement
 public class User {
 
     private long      id;
@@ -34,7 +41,7 @@ public class User {
     public User withId(long id) {
         return new User(id, email, name, birthday);
     }
-
+    @XmlElement
     public long getId() {
         return id;
     }
@@ -42,7 +49,7 @@ public class User {
     public void setId(long id) {
         this.id = id;
     }
-
+    @XmlElement
     public String getEmail() {
         return email;
     }
@@ -50,7 +57,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -58,7 +65,8 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlSchemaType(name="date")
     public LocalDate getBirthday() {
         return birthday;
     }
@@ -66,7 +74,7 @@ public class User {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
-
+    @XmlTransient   
     public String getPassword() {
         return password;
     }
@@ -74,7 +82,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    @XmlElement
     public String getRoles() {
         return roles;
     }

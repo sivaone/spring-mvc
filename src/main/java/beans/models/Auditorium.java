@@ -3,6 +3,8 @@ package beans.models;
 import util.CsvUtil;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +12,7 @@ import java.util.List;
  * Date: 2/1/2016
  * Time: 7:55 PM
  */
+@XmlRootElement
 public class Auditorium {
 
     private long   id;
@@ -18,6 +21,10 @@ public class Auditorium {
     private String vipSeats;
 
     public Auditorium() {
+    }
+    
+    public Auditorium(String name) {
+        this.name = name;
     }
 
     public Auditorium(String name, int seatsNumber, List<Integer> vipSeats) {
@@ -46,7 +53,7 @@ public class Auditorium {
     public void setId(long id) {
         this.id = id;
     }
-
+    @XmlElement
     public String getName() {
         return name;
     }

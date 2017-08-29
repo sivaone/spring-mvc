@@ -1,21 +1,25 @@
 package beans.models;
 
+import util.LocalDateTimeAdapter;
 import java.time.LocalDateTime;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Dmytro_Babichev
- * Date: 2/1/2016
- * Time: 7:42 PM
+ * Created with IntelliJ IDEA. User: Dmytro_Babichev Date: 2/1/2016 Time: 7:42
+ * PM
  */
+@XmlRootElement
 public class Event {
 
-    private long          id;
-    private String        name;
-    private Rate          rate;
-    private double        basePrice;
+    private long id;
+    private String name;
+    private Rate rate;
+    private double basePrice;
     private LocalDateTime dateTime;
-    private Auditorium    auditorium;
+    private Auditorium auditorium;
     private double ticketPrice;
 
     public Event() {
@@ -38,6 +42,7 @@ public class Event {
         return new Event(eventId, this.name, this.rate, this.basePrice, this.dateTime, this.auditorium);
     }
 
+    @XmlElement
     public long getId() {
         return id;
     }
@@ -46,6 +51,7 @@ public class Event {
         this.id = id;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -54,6 +60,7 @@ public class Event {
         this.name = name;
     }
 
+    @XmlElement
     public Rate getRate() {
         return rate;
     }
@@ -62,6 +69,7 @@ public class Event {
         this.rate = rate;
     }
 
+    @XmlElement
     public double getBasePrice() {
         return basePrice;
     }
@@ -70,6 +78,8 @@ public class Event {
         this.basePrice = basePrice;
     }
 
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    @XmlSchemaType(name="dateTime")
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -77,7 +87,7 @@ public class Event {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-
+    @XmlElement
     public Auditorium getAuditorium() {
         return auditorium;
     }
@@ -86,6 +96,7 @@ public class Event {
         this.auditorium = auditorium;
     }
 
+    @XmlElement
     public double getTicketPrice() {
         return ticketPrice;
     }
@@ -93,26 +104,33 @@ public class Event {
     public void setTicketPrice(double ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
-    
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Event))
+        }
+        if (!(o instanceof Event)) {
             return false;
+        }
 
         Event event = (Event) o;
 
-        if (id != event.id)
+        if (id != event.id) {
             return false;
-        if (Double.compare(event.basePrice, basePrice) != 0)
+        }
+        if (Double.compare(event.basePrice, basePrice) != 0) {
             return false;
-        if (name != null ? !name.equals(event.name) : event.name != null)
+        }
+        if (name != null ? !name.equals(event.name) : event.name != null) {
             return false;
-        if (rate != event.rate)
+        }
+        if (rate != event.rate) {
             return false;
-        if (dateTime != null ? !dateTime.equals(event.dateTime) : event.dateTime != null)
+        }
+        if (dateTime != null ? !dateTime.equals(event.dateTime) : event.dateTime != null) {
             return false;
+        }
         return auditorium != null ? auditorium.equals(event.auditorium) : event.auditorium == null;
 
     }
@@ -133,13 +151,13 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", rate=" + rate +
-               ", basePrice=" + basePrice +
-               ", dateTime=" + dateTime +
-               ", auditorium=" + auditorium +
-               '}';
+        return "Event{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", rate=" + rate
+                + ", basePrice=" + basePrice
+                + ", dateTime=" + dateTime
+                + ", auditorium=" + auditorium
+                + '}';
     }
 }

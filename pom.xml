@@ -13,8 +13,20 @@
         <hibernate.ver>5.1.0.Final</hibernate.ver>
         <h2.ver>1.4.191</h2.ver>
     </properties>
-    
+    <!--    <repositories>
+        <repository>
+            <id>spring-repo</id>
+            <name>Spring Repository</name>
+            <url>https://repo.spring.io/release</url>
+        </repository>
+    </repositories>-->
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>1.5.4.RELEASE</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -55,6 +67,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>2.2.4.RELEASE</version>
+            <!--<classifier>all</classifier>-->
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -119,6 +138,16 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.20</version>
         </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.2.11</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -132,6 +161,56 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                    <execution>
+                        <id>schemagen</id>
+                        <goals>
+                            <goal>schemagen</goal>
+                        </goals>
+                        
+                    </execution>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <!--                        <configuration>
+                            <packageName>com.siva.schema</packageName>
+                        </configuration>-->
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaSourceExcludeFilters>
+                        <myExcludes implementation="org.codehaus.mojo.jaxb2.shared.filters.pattern.PatternFileFilter">
+                            <patterns>
+                                <pattern>.aspects.*</pattern>
+                                <pattern>.configuration.*</pattern>
+                                <pattern>.controllers.*</pattern>
+                                <pattern>.daos.*</pattern>
+                                <pattern>.services.*</pattern>
+                                <pattern>.util.*</pattern>
+                                <pattern>.soapws.*</pattern>
+                                <pattern>Booking\.java</pattern>
+                                <pattern>Rate\.java</pattern>
+                                <pattern>Ticket\.java</pattern>
+                                <pattern>UserAccount\.java</pattern>
+                                <pattern>Main\.java</pattern>
+                                <pattern>schema1\.xsd</pattern>
+                            </patterns>
+                        </myExcludes>
+                    </schemaSourceExcludeFilters>
+                    <packageName>com.siva.schema</packageName>
+                    <sources>
+                        <source>src/main/xsd/schema1.xsd</source>
+                    </sources>
+                </configuration>
+            </plugin>
+            
         </plugins>
     </build>
 </project>
